@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { TrainingPlanModuleComponent } from './training-plan/training-plan-module/training-plan-module.component';
 import { TrainingPlanMainComponent } from './training-plan/training-plan-main/training-plan-main.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { TrainingPlanMainComponent } from './training-plan/training-plan-main/tr
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
