@@ -12,6 +12,7 @@
     position: sticky;
     top: 0;
     width: 100%;
+    background-color: var(--clr-dark);
 }
 
 .training-plans__container {
@@ -28,6 +29,11 @@
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: var(--border-radius);
     text-shadow: 1px 1px 2px var(--clr-dark);
+    transition: opacity 0.3s;
+}
+
+.card:hover {
+    opacity: 0.7;
 }
 
 .card__container {
@@ -41,6 +47,7 @@
 .card-body__title {
     margin-top: 10px;
     font-weight: 700;
+    font-size: 1.2em;
 }
 
 .card-body__title, .card-body__desc {
