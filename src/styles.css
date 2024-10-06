@@ -3,7 +3,7 @@
 :root {
     --clr-dark: #181320;
     --clr-light: #f0f0f0;
-    --x-padding: 15px;
+    --padding: 15px;
 }
 
 *,
@@ -30,7 +30,7 @@ a,
 a:hover,
 a:active {
     text-decoration: none;
-    color: #000;
+    color: inherit;
 }
 
 h1,

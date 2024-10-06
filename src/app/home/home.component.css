@@ -4,6 +4,13 @@
     color: var(--clr-light);
 }
 
+.header {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+}
+
 .welcome, .welcome__container, .welcome__body {
     height: 100%;
 }
@@ -26,7 +33,7 @@
 }
 
 .welcome-image__text {
-    padding: var(--x-padding);
+    padding: var(--padding);
     text-align: center;
     text-shadow: 1px 1px 1px var(--clr-dark);
 }
