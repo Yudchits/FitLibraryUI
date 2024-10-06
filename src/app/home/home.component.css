@@ -1,0 +1,114 @@
+.wrapper {
+    height: 100%;
+    background-color: var(--clr-dark);
+    color: var(--clr-light);
+}
+
+.welcome, .welcome__container, .welcome__body {
+    height: 100%;
+}
+
+.welcome__image {
+    height: 100%;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-img-1 {
+    background-image: url('../../assets/home/fitness-women-in-gym.jpeg');
+}
+
+.welcome-image__text {
+    padding: var(--x-padding);
+    text-align: center;
+    text-shadow: 1px 1px 1px var(--clr-dark);
+}
+
+.welcome-image-text__title {
+    font-size: 1.9em;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-wrap: nowrap;
+}
+
+.welcome-image-text__subtitle {
+    margin-top: 1.7em;
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+.welcome-image-text-start-button {
+    margin-top: 1.3em;
+    font-size: 1.5em;
+    font-weight: 500;
+    position: relative;
+    padding: 7px 14px;
+    transition: 0.7s;
+    transition-delay: 0.3s;
+}
+
+.welcome-image-text-start-button:hover {
+    background-color: var(--clr-light);
+    color: var(--clr-dark);
+    box-shadow: 0 0 50px var(--clr-light);
+    transition-delay: 0.3s;
+}
+
+.welcome-image-text-start-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid var(--clr-light);
+    border-left: 2px solid var(--clr-light);
+    transition: 0.5s;
+    transition-delay: 0.3s;
+}
+
+.welcome-image-text-start-button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 10px;
+    height: 10px;
+    border-bottom: 2px solid var(--clr-light);
+    border-right: 2px solid var(--clr-light);
+    transition: 0.5s;
+    transition-delay: 0.3s;
+}
+
+.welcome-image-text-start-button:hover:before {
+    width: 100%;
+    height: 100%;
+    transition-delay: 0s;
+}
+
+.welcome-image-text-start-button:hover:after {
+    width: 100%;
+    height: 100%;
+    transition-delay: 0s;
+}
+
+@media (min-width: 480px) {
+    .welcome-image-text__title {
+        font-size: 2.5em;
+    }
+
+    .welcome-image-text__subtitle {
+        font-size: 1.4em;
+    }
+
+    .welcome-image-text-start-button {
+        font-size: 2.1em;
+    }
+}

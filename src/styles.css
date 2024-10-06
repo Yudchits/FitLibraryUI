@@ -1,9 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+:root {
+    --clr-dark: #181320;
+    --clr-light: #f0f0f0;
+    --x-padding: 15px;
+}
+
 *,
 *::before,
 *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
 }
 
 html,
@@ -36,4 +45,11 @@ h6 {
 
 img {
     vertical-align: top;
+}
+
+button {
+    border: none;
+    background-color: transparent;
+    color: var(--clr-light);
+    font-size: inherit;
 }
