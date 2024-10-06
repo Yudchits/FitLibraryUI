@@ -1,0 +1,12 @@
+.wrapper {
+    height: 100%;
+    overflow-x: hidden;
+    background-color: var(--clr-dark);
+    color: var(--clr-light);
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+}
