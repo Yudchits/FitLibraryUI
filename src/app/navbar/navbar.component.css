@@ -91,6 +91,7 @@
 .navbar-collapst-list__brand {
     font-size: 2.1em;
     font-weight: 700;
+    text-align: center;
 }
 
 .navbar-collapse-list__modules {
@@ -147,6 +148,7 @@
 
     .navbar-collapse-list__modules {
         flex-direction: row;
+        gap: 19px;
     }
 
     .navbar-collapse-list__socials {
