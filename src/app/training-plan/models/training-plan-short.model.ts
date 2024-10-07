@@ -1,9 +1,9 @@
 export class TrainingPlanShort {
-    public Id: number;
-    public Name: string;
+    public id: number;
+    public name: string;
     public Description: string;
-    public Sport: string;
-    public Price: number;
-    public Rating: number;
-    public CreatorId: number;
+    public sport: string;
+    public price: number;
+    public rating: number;
+    public creatorId: number;
 }

@@ -10,8 +10,17 @@
         </div>
         <div class="training-plans__body">
           <div class="training-plans-body__container">
+            <div *ngIf="!isTrainingPlansLoaded">
+              Загрузка...
+            </div>
+            <div *ngIf="isTrainingPlansLoaded && trainingPlans.length === 0">
+              Список доступных планов тренировок пуст!
+            </div>
             <div class="training-plans-body__items">
-              <div class="training-plans-body__item">
+              <div 
+                *ngFor="let trainingPlan of trainingPlans"  
+                class="training-plans-body__item"
+              >
                 <div class="card">
                   <div class="card__container">
                     <div class="card__header">
@@ -25,167 +34,35 @@
                       </div>
                     </div>
                     <div class="card__body">
+                      <div class="card-body__credits">
+                        <div class="card-body__credit">
+                          {{ trainingPlan.sport }}
+                        </div>
+                        <div class="card-body__credit">
+                          {{ trainingPlan.rating }} 
+                          <img 
+                            src="../../../assets/training-plan/star.svg" 
+                            alt=""
+                            height="15px"
+                            class="card-body-credit__image"
+                          >
+                        </div>
+                      </div>
                       <div class="card-body__title">
-                        <h1>Training Plan #1</h1>
+                        <h1>{{ trainingPlan.name }}</h1>
                       </div>
                       <div class="card-body__desc">
-                        Training plan for proffesionals...
+                        {{ trainingPlan.description }}
                       </div>
-                      <div class="card__footer">
-                        <div class="card-footer__items">
-                          <div class="card-footer__item">
-                            777$
-                          </div>
-                          <div class="card-footer__item">
-                            5 balls
-                          </div>
+                      <div class="card-body__buttons">
+                        <div class="card-body__button">
+                          <button class="btn card-body-button">Explore</button>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              
-              <div class="training-plans-body__item">
-                <div class="card">
-                  <div class="card__container">
-                    <div class="card__header">
-                      <div class="card__image">
-                        <img 
-                          src="../../../assets/home/fitness-women-in-gym.jpeg" 
-                          alt="Training Plan" 
-                          width="100%" 
-                          class="card-image-image"
-                        >
-                      </div>
-                    </div>
-                    <div class="card__body">
-                      <div class="card-body__title">
-                        <h1>Training Plan #1</h1>
-                      </div>
-                      <div class="card-body__desc">
-                        Training plan for proffesionals...
-                      </div>
-                      <div class="card__footer">
-                        <div class="card-footer__items">
-                          <div class="card-footer__item">
-                            777$
-                          </div>
-                          <div class="card-footer__item">
-                            5 balls
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="training-plans-body__item">
-                <div class="card">
-                  <div class="card__container">
-                    <div class="card__header">
-                      <div class="card__image">
-                        <img 
-                          src="../../../assets/home/fitness-women-in-gym.jpeg" 
-                          alt="Training Plan" 
-                          width="100%" 
-                          class="card-image-image"
-                        >
-                      </div>
-                    </div>
-                    <div class="card__body">
-                      <div class="card-body__title">
-                        <h1>Training Plan #1</h1>
-                      </div>
-                      <div class="card-body__desc">
-                        Training plan for proffesionals...
-                      </div>
-                      <div class="card__footer">
-                        <div class="card-footer__items">
-                          <div class="card-footer__item">
-                            777$
-                          </div>
-                          <div class="card-footer__item">
-                            5 balls
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="training-plans-body__item">
-                <div class="card">
-                  <div class="card__container">
-                    <div class="card__header">
-                      <div class="card__image">
-                        <img 
-                          src="../../../assets/home/fitness-women-in-gym.jpeg" 
-                          alt="Training Plan" 
-                          width="100%" 
-                          class="card-image-image"
-                        >
-                      </div>
-                    </div>
-                    <div class="card__body">
-                      <div class="card-body__title">
-                        <h1>Training Plan #1</h1>
-                      </div>
-                      <div class="card-body__desc">
-                        Training plan for proffesionals...
-                      </div>
-                      <div class="card__footer">
-                        <div class="card-footer__items">
-                          <div class="card-footer__item">
-                            777$
-                          </div>
-                          <div class="card-footer__item">
-                            5 balls
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="training-plans-body__item">
-                <div class="card">
-                  <div class="card__container">
-                    <div class="card__header">
-                      <div class="card__image">
-                        <img 
-                          src="../../../assets/home/fitness-women-in-gym.jpeg" 
-                          alt="Training Plan" 
-                          width="100%" 
-                          class="card-image-image"
-                        >
-                      </div>
-                    </div>
-                    <div class="card__body">
-                      <div class="card-body__title">
-                        <h1>Training Plan #1</h1>
-                      </div>
-                      <div class="card-body__desc">
-                        Training plan for proffesionals...
-                      </div>
-                      <div class="card__footer">
-                        <div class="card-footer__items">
-                          <div class="card-footer__item">
-                            777$
-                          </div>
-                          <div class="card-footer__item">
-                            5 balls
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
             </div>
           </div>
         </div>

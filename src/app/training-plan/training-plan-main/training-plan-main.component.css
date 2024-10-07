@@ -29,11 +29,6 @@
     background-color: rgba(0, 0, 0, 0.2);
     border-radius: var(--border-radius);
     text-shadow: 1px 1px 2px var(--clr-dark);
-    transition: opacity 0.3s;
-}
-
-.card:hover {
-    opacity: 0.7;
 }
 
 .card__container {
@@ -44,33 +39,64 @@
     border-radius: var(--border-radius);
 }
 
-.card-body__title {
-    margin-top: 10px;
-    font-weight: 700;
-    font-size: 1.2em;
-}
-
-.card-body__title, .card-body__desc {
-    text-align: center;
-}
-
 .card__body {
     text-transform: uppercase;
+    position: relative;
 }
 
-.card-body__desc {
-    text-align: center;
-    margin: 15px 0;
-}
-
-.card-footer__items {
+.card-body__credits {
+    margin-top: 5px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
 
+.card-body__credit {
+    font-size: 0.7em;
+    opacity: 0.8;
+}
+
+.card-body-credit__image {
+    filter: invert(100%) sepia(0%) saturate(7476%) hue-rotate(18deg) brightness(101%) contrast(105%);
+}
+
+.card-body__title {
+    margin-top: 10px;
+    font-weight: 700;
+    font-size: 1.3em;
+    text-align: center;
+}
+
+.card-body__desc {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.card-body__buttons {
+    margin-top: 15px;
+}
+
+.card-body__button {
+    text-align: center;
+}
+
+.card-body-button {
+    text-transform: inherit;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
 @media (min-width: 480px) {
+
+    .card {
+        transition: scale 0.3s;
+    }
+
+    .card:hover {
+        scale: 1.05;
+    }
+
     .training-plans-body__items {
         grid-template-columns: 1fr 1fr;
     }
