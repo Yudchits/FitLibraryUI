@@ -112,7 +112,7 @@
 }
 
 .navbar-collapse-link {
-    transition: 0.3s;
+    transition: all 0.3s;
 }
 
 .navbar-collapse-link:hover {

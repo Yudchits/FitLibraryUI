@@ -6,7 +6,24 @@
     <article class="training-plans">
       <div class="training-plans__container">
         <div class="training-plans__header">
-
+          <div class="training-plans__search">
+            <div class="training-plans-search__container">
+              <input 
+                type="text" 
+                class="training-plans-search" 
+                placeholder="Поиск..."
+                maxlength="128"
+                [(ngModel)]="searchKey"
+                (keyup)="onSearch()"
+              >
+              <img 
+                src="../../../assets/training-plan/search.svg" 
+                alt="Поиск"
+                width="30px"
+                class="training-plans-search-icon"
+              >
+            </div>
+          </div>
         </div>
         <div class="training-plans__body">
           <div class="training-plans-body__container">
@@ -18,7 +35,7 @@
             </div>
             <div class="training-plans-body__items">
               <div 
-                *ngFor="let trainingPlan of trainingPlans"  
+                *ngFor="let trainingPlan of trainingPlansDisplay"  
                 class="training-plans-body__item"
               >
                 <div class="card">

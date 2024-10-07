@@ -12,11 +12,44 @@
     position: sticky;
     top: 0;
     width: 100%;
+    z-index: 1;
     background-color: var(--clr-dark);
 }
 
 .training-plans__container {
     padding: var(--padding);
+}
+
+.training-plans-search__container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: var(--clr-light);
+    border-radius: 60px / 60px;
+    padding: 0.7em;
+}
+
+.training-plans-search__container:has(.training-plans-search:focus) {
+    box-shadow: 0 0 3px var(--clr-light);
+}
+
+.training-plans-search {
+    font-size: 1.1em;
+    width: 100%;
+    border: none;
+    background-color: var(--clr-light);
+}
+
+.training-plans-search:focus {
+    outline: none;
+}
+
+.training-plans-search-icon {
+    filter: invert(4%) sepia(6%) saturate(6423%) hue-rotate(223deg) brightness(100%) contrast(91%);
+}
+
+.training-plans__body {
+    margin-top: 15px;
 }
 
 .training-plans-body__items {

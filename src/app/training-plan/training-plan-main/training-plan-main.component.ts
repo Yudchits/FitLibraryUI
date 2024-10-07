@@ -9,21 +9,37 @@ import { TrainingPlanService } from '../services/training-plan.service';
 })
 export class TrainingPlanMainComponent implements OnInit {
 
+  private trainingPlans: TrainingPlanShort[] = [];
+
   isTrainingPlansLoaded: boolean = false;
-  trainingPlans: TrainingPlanShort[] = [];
+  trainingPlansDisplay: TrainingPlanShort[] = [];
+  searchKey: string = '';
 
   constructor(private trainingPlanService: TrainingPlanService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initTrainingPlans();
   }
 
-  private initTrainingPlans() {
+  private initTrainingPlans(): void {
     this.isTrainingPlansLoaded = false;
     this.trainingPlanService.getAllTrainingPlans().subscribe((trainingPlans: TrainingPlanShort[]) => {
       this.trainingPlans = trainingPlans || [];
+      this.trainingPlansDisplay = this.trainingPlans;
       this.isTrainingPlansLoaded = true;
     })
+  }
+
+  onSearch(): void {
+    if (this.searchKey && this.searchKey.length > 0) {
+      this.trainingPlansDisplay = this.trainingPlans.filter((plan: TrainingPlanShort) => {
+        return plan.name.toLowerCase().includes(this.searchKey.toLowerCase()) 
+          || plan.sport.toLowerCase().includes(this.searchKey.toLowerCase());
+      });
+    }
+    else {
+      this.trainingPlansDisplay = this.trainingPlans;
+    }
   }
 
 }

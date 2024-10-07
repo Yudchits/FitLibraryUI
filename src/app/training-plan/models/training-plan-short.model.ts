@@ -1,7 +1,7 @@
 export class TrainingPlanShort {
     public id: number;
     public name: string;
-    public Description: string;
+    public description: string;
     public sport: string;
     public price: number;
     public rating: number;

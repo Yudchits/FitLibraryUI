@@ -8,6 +8,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { TrainingPlanModuleComponent } from './training-plan/training-plan-module/training-plan-module.component';
 import { TrainingPlanMainComponent } from './training-plan/training-plan-main/training-plan-main.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
