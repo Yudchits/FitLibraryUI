@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TrainingPlanShort } from '../models/training-plan-short.model';
 import { TrainingPlanService } from '../services/training-plan.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-training-plan-main',
@@ -15,7 +16,7 @@ export class TrainingPlanMainComponent implements OnInit {
   trainingPlansDisplay: TrainingPlanShort[] = [];
   searchKey: string = '';
 
-  constructor(private trainingPlanService: TrainingPlanService) { }
+  constructor(private router: Router, private trainingPlanService: TrainingPlanService) { }
 
   ngOnInit(): void {
     this.initTrainingPlans();
@@ -40,6 +41,10 @@ export class TrainingPlanMainComponent implements OnInit {
     else {
       this.trainingPlansDisplay = this.trainingPlans;
     }
+  }
+
+  onTrainingPlanClick(trainingPlan: TrainingPlanShort): void {
+    this.router.navigate(['/training-plan/training-plans', trainingPlan.id]);
   }
 
 }

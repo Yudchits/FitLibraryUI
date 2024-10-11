@@ -1,0 +1,79 @@
+.wrapper {
+    height: 100%;
+    background-color: var(--clr-dark);
+    color: var(--clr-light);
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    width: 100%;
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    background-color: var(--clr-dark);
+}
+
+.body {
+    flex-grow: 1;
+}
+
+.body__container {
+    padding: var(--padding);
+}
+
+.training-plan {
+    text-transform: uppercase;
+    text-shadow: 1px 1px 2px var(--clr-dark);
+}
+
+.training-plan__image {
+    text-align: center;
+}
+
+.training-plan-image__image {
+    width: 100%;
+    max-width: 400px;
+}
+
+.training-plan-image__caption {
+    display: flex;
+    justify-content: space-between;
+}
+
+.training-plan__desc {
+    text-align: center;
+}
+
+.training-plan-desc__title {
+    margin-top: 15px;
+    font-weight: 700;
+    font-size: 1.3em;
+}
+
+.training-plan-desc__subtitle {
+    margin: 15px 0;
+}
+
+.exercise {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.exercise__table {
+    width: 100%;
+    border-collapse: collapse;
+}
+    
+.exercise__table th, .exercise__table td {
+    border: 1.5px solid var(--clr-light);
+    padding: 8px;
+    text-align: center;
+    white-space: nowrap;
+}

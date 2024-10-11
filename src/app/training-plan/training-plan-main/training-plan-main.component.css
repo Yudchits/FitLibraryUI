@@ -30,7 +30,7 @@
 }
 
 .training-plans-search__container:has(.training-plans-search:focus) {
-    box-shadow: 0 0 3px var(--clr-light);
+    box-shadow: 0 0 7px var(--clr-light);
 }
 
 .training-plans-search {
@@ -56,6 +56,10 @@
     display: grid;
     grid-template-columns: 1fr;
     gap: 15px;
+}
+
+.training-plans-body__item {
+    cursor: pointer;
 }
 
 .card {

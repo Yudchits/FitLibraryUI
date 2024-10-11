@@ -9,6 +9,7 @@ import { TrainingPlanModuleComponent } from './training-plan/training-plan-modul
 import { TrainingPlanMainComponent } from './training-plan/training-plan-main/training-plan-main.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TrainingPlanDetailComponent } from './training-plan/training-plan-detail/training-plan-detail.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     NavbarComponent,
     TrainingPlanModuleComponent,
-    TrainingPlanMainComponent
+    TrainingPlanMainComponent,
+    TrainingPlanDetailComponent
   ],
   imports: [
     BrowserModule,

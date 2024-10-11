@@ -1,0 +1,61 @@
+<div class="wrapper">
+  <div class="container">
+    <section class="header">
+      <app-navbar></app-navbar>
+    </section>
+    <section class="body">
+      <div class="body__container">
+        <div *ngIf="!isPlanLoaded">
+          Загрузка...
+        </div>
+        <div 
+          class="training-plan" 
+          *ngIf="isPlanLoaded"
+        >
+          <div class="training-plan__image">
+            <img 
+              src="../../../assets/home/fitness-women-in-gym.jpeg" 
+              alt="Training Plan" 
+              width="300px"
+              class="training-plan-image__image" 
+            >
+          </div>
+          <div class="training-plan__desc">
+            <div class="training-plan-desc__title">
+              {{ trainingPlan.name }}
+            </div>
+            <div class="training-plan-desc__subtitle">
+              {{ trainingPlan.description }}
+            </div>
+          </div>
+          <div class="exercise">
+            <table class="exercise__table">
+              <thead>
+                <tr>
+                  <th>Неделя</th>
+                  <th>Упражнение</th>
+                  <th>Подходы</th>
+                  <th>Повторения</th>
+                  <th>Вес</th>
+                  <th>Время</th>
+                  <th>Отдых</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let exercise of trainingPlan.exercises">
+                  <td>{{ exercise.week }}</td>
+                  <td>{{ exercise.exerciseName }}</td>
+                  <td>{{ exercise.sets }}</td>
+                  <td>{{ exercise.repetitions }}</td>
+                  <td>{{ exercise.weight }}</td>
+                  <td>{{ exercise.time }}</td>
+                  <td>{{ exercise.restPeriod }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
