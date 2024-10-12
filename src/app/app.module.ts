@@ -10,6 +10,7 @@ import { TrainingPlanMainComponent } from './training-plan/training-plan-main/tr
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TrainingPlanDetailComponent } from './training-plan/training-plan-detail/training-plan-detail.component';
+import { WeekdayPipe } from './training-plan/common/pipes/weekday.pipe';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { TrainingPlanDetailComponent } from './training-plan/training-plan-detai
     NavbarComponent,
     TrainingPlanModuleComponent,
     TrainingPlanMainComponent,
-    TrainingPlanDetailComponent
+    TrainingPlanDetailComponent,
+    WeekdayPipe
   ],
   imports: [
     BrowserModule,
