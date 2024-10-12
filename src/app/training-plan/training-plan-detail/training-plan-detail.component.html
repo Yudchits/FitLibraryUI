@@ -33,6 +33,7 @@
               <thead>
                 <tr>
                   <th>Неделя</th>
+                  <th>День</th>
                   <th>Упражнение</th>
                   <th>Подходы</th>
                   <th>Повторения</th>
@@ -44,6 +45,7 @@
               <tbody>
                 <tr *ngFor="let exercise of trainingPlan.exercises">
                   <td>{{ exercise.week }}</td>
+                  <td>{{ exercise.weekday }}</td>
                   <td>{{ exercise.exerciseName }}</td>
                   <td>{{ exercise.sets }}</td>
                   <td>{{ exercise.repetitions }}</td>
