@@ -3,7 +3,7 @@ import { Weekday } from "../common/helpers/weekday";
 export class Exercise {
     public id: number;
     public week: number;
-    public weekDay: Weekday;
+    public weekday: Weekday;
     public exerciseName: string;
     public sets: number;
     public repetitions: number;

@@ -15,6 +15,7 @@ export class TrainingPlanDetailComponent implements OnInit {
   trainingPlan: TrainingPlanFull = null;
   isPlanLoaded: boolean = false;
   @ViewChildren('weekTd') weekTds: QueryList<ElementRef>;
+  @ViewChildren('weekdayTd') weekdayTds: QueryList<ElementRef>;
 
   constructor(private route: ActivatedRoute, 
     private trainingPlanService: TrainingPlanService, 
@@ -34,11 +35,16 @@ export class TrainingPlanDetailComponent implements OnInit {
     this.isPlanLoaded = false;
     this.trainingPlanService.getTrainingPlanById(id).subscribe((trainingPlan: TrainingPlanFull) => {
       this.trainingPlan = trainingPlan || null;
-      this.trainingPlan.exercises = this.trainingPlan.exercises.sort((a, b) => a.week - b.week);
+      this.sortExercisesByWeek();
       this.isPlanLoaded = true;
       this.changeDetector.detectChanges();
       this.mergeWeekRows();
+      this.mergeWeekdayRows();
     });
+  }
+
+  private sortExercisesByWeek(): void {
+    this.trainingPlan.exercises = this.trainingPlan.exercises.sort((a, b) => a.week - b.week);
   }
 
   private mergeWeekRows(): void {
@@ -54,7 +60,7 @@ export class TrainingPlanDetailComponent implements OnInit {
       if (exercises[i].week != currentWeek) {
         currentWeek = exercises[i].week;
         currentWeekId = i;
-        
+
         weekTds[currentWeekId].nativeElement.setAttribute('rowspan', 1);
       } else {
         const mergedTd = weekTds[currentWeekId];
@@ -62,6 +68,35 @@ export class TrainingPlanDetailComponent implements OnInit {
         mergedTd.nativeElement.setAttribute('rowspan', mergedTdRowspan + 1)
   
         weekTds[i].nativeElement.style = 'display: none';
+      }
+    }
+  }
+
+  private mergeWeekdayRows(): void {
+    const weekdayTds = this.weekdayTds.toArray();
+
+    let currentWeek = null;
+    let currentWeekday = null;
+    let currentWeekdayId = null;
+
+    const exercises = this.trainingPlan.exercises;
+    const exercisesLength = exercises.length;
+
+    for (let i = 0; i < exercisesLength; i++) {
+      const exercise = exercises[i];
+      if (exercise.weekday != currentWeekday || exercise.week != currentWeek) {
+        currentWeek = exercise.week;
+        currentWeekday = exercise.weekday;
+        currentWeekdayId = i;
+
+        weekdayTds[currentWeekdayId].nativeElement.setAttribute('rowspan', 1);
+      } else {
+        const mergedTd = weekdayTds[currentWeekdayId];
+
+        const mergedTdRowspan = parseInt(mergedTd.nativeElement.getAttribute('rowspan'));
+        mergedTd.nativeElement.setAttribute('rowspan', mergedTdRowspan + 1);
+  
+        weekdayTds[i].nativeElement.style = 'display: none';
       }
     }
   }

@@ -45,7 +45,7 @@
               <tbody>
                 <tr *ngFor="let exercise of trainingPlan.exercises">
                   <td #weekTd>{{ exercise.week }}</td>
-                  <td>{{ exercise.weekday | weekday }}</td>
+                  <td #weekdayTd>{{ exercise.weekday | weekday }}</td>
                   <td>{{ exercise.exerciseName }}</td>
                   <td>{{ exercise.sets }}</td>
                   <td>{{ exercise.repetitions }}</td>
