@@ -1,0 +1,138 @@
+.wrapper {
+    height: 100%;
+    background-color: var(--clr-dark);
+    color: var(--clr-light);
+    overflow-x: hidden;
+}
+
+.header {
+    position: sticky;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    background-color: var(--clr-dark);
+}
+
+.body__container {
+    padding: var(--padding);
+    text-transform: uppercase;
+}
+
+.create-form__items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 21px;
+}
+
+.create-form__item {
+    width: 100%;
+    position: relative;
+}
+
+.create-form__table {
+    display: flex;
+    flex-direction: column;
+}
+
+.create-form-input {
+    border: 0;
+    border-bottom: 1px solid var(--clr-light);  
+    background: transparent;
+    width: 100%;
+    padding: 4px 0;
+    font-size: inherit;
+    color: var(--clr-light);
+}
+
+.create-form-input[type="file"] {
+    display: none;
+}
+
+.create-form-input:focus {
+    outline: none;
+}
+
+.create-form-label {
+    position: absolute;
+	top: 0;
+	left: 0;
+	font-size: inherit;
+	color: var(--clr-light);
+	transition: all 0.5s ease-in-out;
+}
+
+.create-form-file-name {
+    border: 0;
+    border-bottom: 1px solid var(--clr-light);  
+    background: transparent;
+    width: 100%;
+    padding: 4px 0;
+    font-size: inherit;
+    color: var(--clr-light);
+}
+
+.create-form-input:focus ~ .create-form-label,
+.create-form-input:valid ~ .create-form-label {
+	top: -14px;
+    font-size: 75%;
+}
+
+.create-form-table__container {
+    flex-grow: 1;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.create-form-table__actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 0;
+}
+
+.edit-icon {
+    filter: invert(100%) sepia(54%) saturate(266%) hue-rotate(335deg) brightness(114%) contrast(88%);
+}
+
+.create-form-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.create-form-table .create-form-input {
+    border: none;
+} 
+
+.create-form-table th {
+    text-wrap: nowrap;
+    padding: 10px;
+}
+
+.create-form-table th, .create-form-table td {
+    border: 1px solid var(--clr-light);
+}
+
+th .create-form-input, td .create-form-input {
+    text-align: center;
+}
+
+.create-form__submit {
+    margin-top: 25px;
+}
+
+.create-form-submit__items {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+}
+
+.create-form__submit .btn {
+    font-size: 1.2em;
+    font-weight: 700;
+}

@@ -1,0 +1,222 @@
+<div class="wrapper">
+  <section class="header">
+    <app-navbar></app-navbar>
+  </section>
+  <section class="body">
+    <div class="body__container">
+      <div class="create">
+        <form 
+          class="create__form"
+          enctype="multipart/form-data"
+          [formGroup]="createForm"
+        >
+          <div class="create-form__items">
+            <div class="create-form__item">
+              <input 
+                class="create-form-input"
+                id="name"
+                type="text" 
+                maxlength="64"
+                required=""
+                formControlName="name"
+              >
+              <label 
+                class="create-form-label"
+                for="name"
+              >
+                Название
+              </label>  
+            </div>
+            <div class="create-form__item">
+              <textarea 
+                class="create-form-input"
+                id="description"
+                autosize
+                rows="1"
+                maxlength="128"
+                required=""
+                formControlName="description"
+              ></textarea>
+              <label 
+                class="create-form-label"
+                for="description"
+              >
+                Описание
+              </label> 
+            </div>
+            <div class="create-form__item">
+              <input 
+                class="create-form-input"
+                id="sport"
+                type="text" 
+                maxlength="64"
+                required=""
+                formControlName="sport"
+              >
+              <label 
+                class="create-form-label"
+                for="sport"
+              >
+                Вид спорта
+              </label> 
+            </div>
+            <div class="create-form__item">
+              <input 
+                class="create-form-input"
+                id="price"
+                type="text" 
+                required=""
+                formControlName="price"
+              >
+              <label 
+                class="create-form-label"
+                for="price"
+              >
+                Цена
+              </label> 
+            </div>
+            <div class="create-form__item">
+              <input
+                class="create-form-input" 
+                id="image"
+                type="file"
+                required
+                (change)="onImageChanged($event)"
+              >
+              <input 
+                class="create-form-file-name" 
+                [(ngModel)]="selectedFileName"
+                [ngModelOptions]="{standalone: true}"
+                disabled
+              >
+              <label 
+                class="create-form-label"
+                for="image"
+              >
+                Изображение
+              </label> 
+            </div>
+            <div class="create-form__item create-form__table">
+              <div class="create-form-table__container">
+                <div class="create-form-table__actions">
+                  <div 
+                    *ngIf="selectedRow != undefined"
+                    class="create-form-table__action"
+                  >
+                    <button (click)="onEditTableClick($event)">
+                      <img 
+                        src="../../../assets/training-plan/edit.svg" 
+                        alt="Edit"
+                        width="21px"
+                        class="edit-icon"
+                      >
+                    </button>
+                  </div>
+                </div>
+                <table 
+                  formArrayName="exercises"
+                  class="create-form-table"
+                >
+                  <thead>
+                    <tr>
+                      <th>Неделя</th>
+                      <th>День</th>
+                      <th>Упражнение</th>
+                      <th>Подходы</th>
+                      <th>Повторения</th>
+                      <th>Вес</th>
+                      <th>Время нагрузки</th>
+                      <th>Отдых</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr 
+                      *ngFor="let exercise of exercises.controls; let row = index" 
+                      [formGroupName]="row"
+                      (click)="onRowClick(row)"
+                    >
+                      <td>
+                        <input 
+                          type="text" 
+                          class="create-form-input"
+                          formControlName="week"
+                        >
+                      </td>
+                      <td>
+                        <input 
+                          type="text" 
+                          class="create-form-input"
+                          formControlName="weekday"
+                        >
+                      </td>
+                      <td>
+                        <input 
+                          type="text" 
+                          class="create-form-input"
+                          formControlName="exerciseName"
+                        >
+                      </td>
+                      <td>
+                        <input 
+                          type="text" 
+                          class="create-form-input"
+                          formControlName="sets"
+                        >
+                      </td>
+                      <td>
+                        <input 
+                          type="text" 
+                          class="create-form-input"
+                          formControlName="repetitions"
+                        >
+                      </td>
+                      <td>
+                        <input 
+                          type="text" 
+                          class="create-form-input"
+                          formControlName="weight"
+                        >
+                      </td>
+                      <td>
+                        <input 
+                          type="text" 
+                          class="create-form-input"
+                          formControlName="time"
+                        >
+                      </td>
+                      <td>
+                        <input 
+                          type="text" 
+                          class="create-form-input"
+                          formControlName="restPeriod"
+                        >
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="create-form__submit">
+            <div class="create-form-submit__items">
+              <div class="create-form-submit__item">
+                <button 
+                  type="submit" 
+                  class="btn"
+                  (click)="onSubmitCreateForm()"
+                >
+                  Сохранить
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+
+<app-table-edit-context-menu 
+  *ngIf="showTableEditMenu"
+  (actionSelected)="onActionSelected($event)"
+></app-table-edit-context-menu>

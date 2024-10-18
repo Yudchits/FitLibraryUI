@@ -11,6 +11,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TrainingPlanDetailComponent } from './training-plan/training-plan-detail/training-plan-detail.component';
 import { WeekdayPipe } from './training-plan/common/pipes/weekday.pipe';
+import { TrainingPlanCreateComponent } from './training-plan/training-plan-create/training-plan-create.component';
+import { TextareaAutosizeDirective } from './training-plan/common/directives/textarea-autosize.directive';
+import { TableEditContextMenuComponent } from './shared/table-edit-context-menu/table-edit-context-menu.component';
 
 @NgModule({
   declarations: [
@@ -20,13 +23,17 @@ import { WeekdayPipe } from './training-plan/common/pipes/weekday.pipe';
     TrainingPlanModuleComponent,
     TrainingPlanMainComponent,
     TrainingPlanDetailComponent,
-    WeekdayPipe
+    WeekdayPipe,
+    TrainingPlanCreateComponent,
+    TextareaAutosizeDirective,
+    TableEditContextMenuComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,57 @@
+.table-edit {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.table-edit__container {
+    height: min-content;
+    width: min-content;
+    background-color: var(--clr-dark);
+    box-shadow: 0 0 7px var(--clr-light);
+    padding: 10px 10px 15px;
+    border-radius: 7px;
+}
+
+.close {
+    width: min-content;
+    margin-left: auto;
+}
+
+.close-icon {
+    filter: invert(87%) sepia(1%) saturate(0%) hue-rotate(99deg) brightness(107%) contrast(103%);
+    cursor: pointer;
+}
+
+.close-icon:hover {
+    opacity: 0.7;
+}
+
+.table-edit__menu {
+    margin-top: 10px;
+    background-color: var(--clr-dark);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.table-edit-menu__item {
+    text-wrap: nowrap;
+    font-size: inherit;
+    color: var(--clr-light);
+    transition: all 0.3s ease-in-out;
+}
+
+.table-edit-menu__item:hover {
+    opacity: 0.7;
+}
