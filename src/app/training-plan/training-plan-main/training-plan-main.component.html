@@ -70,7 +70,7 @@
                         <h1>{{ trainingPlan.name }}</h1>
                       </div>
                       <div class="card-body__desc">
-                        {{ trainingPlan.description }}
+                        {{ trainingPlan.description | truncate:50 }}
                       </div>
                     </div>
                   </div>

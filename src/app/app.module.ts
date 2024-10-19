@@ -14,6 +14,7 @@ import { WeekdayPipe } from './training-plan/common/pipes/weekday.pipe';
 import { TrainingPlanCreateComponent } from './training-plan/training-plan-create/training-plan-create.component';
 import { TextareaAutosizeDirective } from './training-plan/common/directives/textarea-autosize.directive';
 import { TableEditContextMenuComponent } from './shared/table-edit-context-menu/table-edit-context-menu.component';
+import { TruncatePipe } from './training-plan/common/pipes/truncate.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { TableEditContextMenuComponent } from './shared/table-edit-context-menu/
     WeekdayPipe,
     TrainingPlanCreateComponent,
     TextareaAutosizeDirective,
-    TableEditContextMenuComponent
+    TableEditContextMenuComponent,
+    TruncatePipe
   ],
   imports: [
     BrowserModule,
