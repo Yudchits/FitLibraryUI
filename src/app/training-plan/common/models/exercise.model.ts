@@ -1,4 +1,4 @@
-import { Weekday } from "../common/helpers/weekday";
+import { Weekday } from "../helpers/weekday";
 
 export class Exercise {
     public id: number;

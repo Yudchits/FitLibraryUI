@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, ElementRef, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TrainingPlanService } from '../services/training-plan.service';
-import { TrainingPlanFull } from '../models/training-plan-full.model';
+import { TrainingPlanService } from '../common/services/training-plan.service';
+import { TrainingPlanFull } from '../common/models/training-plan-full.model';
 
 @Component({
   selector: 'app-training-plan-detail',

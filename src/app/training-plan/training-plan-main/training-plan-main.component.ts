@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TrainingPlanShort } from '../models/training-plan-short.model';
-import { TrainingPlanService } from '../services/training-plan.service';
+import { TrainingPlanShort } from '../common/models/training-plan-short.model';
+import { TrainingPlanService } from '../common/services/training-plan.service';
 import { Router } from '@angular/router';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableEditAction } from '../common/enums/table-edit-action.enum';
-import { TrainingPlanService } from '../services/training-plan.service';
+import { TrainingPlanService } from '../common/services/training-plan.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 
 @Component({
@@ -53,7 +53,7 @@ export class TrainingPlanCreateComponent implements OnInit {
     });
   }
 
-  onSubmitCreateForm(): void {
+  onSaveClick(): void {
     const formData = new FormData();
     formData.append('name', this.createForm.get('name').value);
     formData.append('description', this.createForm.get('description').value);
