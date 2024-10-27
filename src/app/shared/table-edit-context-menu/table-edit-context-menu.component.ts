@@ -9,6 +9,8 @@ import { TableEditAction } from 'src/app/training-plan/common/enums/table-edit-a
 export class TableEditContextMenuComponent implements AfterViewInit {
 
   @Output() actionSelected = new EventEmitter<TableEditAction>();
+  @Output() close = new EventEmitter<void>();
+
   @ViewChild('tableEditWrapper') tableEditWrapperRef: ElementRef;
 
   actions = Object.keys(TableEditAction)
@@ -22,8 +24,18 @@ export class TableEditContextMenuComponent implements AfterViewInit {
     }
   }
 
-  onAction(action: string): void {
+  onTableActionClick(action: string): void {
+    this.tableEditWrapperRef.nativeElement.style.opacity = 0;
     const selectedAction = TableEditAction[action as keyof typeof TableEditAction];
-    this.actionSelected.emit(selectedAction);
+    setTimeout(() => {
+      this.actionSelected.emit(selectedAction);
+    }, 500);
+  }
+
+  onCloseClick(): void {
+    this.tableEditWrapperRef.nativeElement.style.opacity = 0;
+    setTimeout(() => {
+      this.close.emit();
+    }, 500);
   }
 }

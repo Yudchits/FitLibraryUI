@@ -24,6 +24,9 @@ export class PhotoComponent implements AfterViewInit, OnDestroy {
 
   @Input() photo: Photo;
   @Output() photoSaved: EventEmitter<string> = new EventEmitter<string>();
+  @Output() photoError: EventEmitter<string> = new EventEmitter<string>();
+  @Output() close: EventEmitter<void> = new EventEmitter<void>();
+
   @ViewChild('photoWrapper') photoWrapperRef: ElementRef;
   @ViewChild('photo') photoRef: ElementRef;
   @ViewChild('frame') frameRef: ElementRef;
@@ -40,6 +43,8 @@ export class PhotoComponent implements AfterViewInit, OnDestroy {
 
   private currentPhotoHeight: number = this.currentFrameHeight + 40;
   private currentPhotoWidth: number;
+
+  private readonly opacityTiming: number = 500;
 
   private onDestroy$ = new Subject<void>();
   private requestCancel$ = new Subject<void>();
@@ -73,7 +78,6 @@ export class PhotoComponent implements AfterViewInit, OnDestroy {
             this.resizePhoto();
           } else {
             this.photoSrc = null;
-            console.log("can't proccess selected image");
           }
 
           this.photoWrapperRef.nativeElement.style.opacity = 1;
@@ -115,14 +119,9 @@ export class PhotoComponent implements AfterViewInit, OnDestroy {
     const headerSectionHeight = this.headerSectionRef.nativeElement.clientHeight;
     const submitSectionHeight = this.submitSectionRef.nativeElement.clientHeight;
 
-    const widthLimit = windowWidth - windowPadding - photoPadding - boxShadow;
+    const widthLimit = windowWidth - windowPadding - photoPadding - editorMargin - boxShadow;
     const heightLimit = windowHeight - windowPadding - photoPadding - editorMargin - boxShadow 
       - headerSectionHeight - submitSectionHeight;
-
-    //console.log('limit: width =', widthLimit, 'height =', heightLimit);
-
-    //console.log('photo: width =', this.currentPhotoWidth, 'height =', this.currentPhotoHeight);
-    //console.log('frame: width =', this.currentFrameWidth, 'height =', this.currentFrameHeight);
 
     const initialPhotoHeight = this.currentPhotoHeight;
 
@@ -132,13 +131,10 @@ export class PhotoComponent implements AfterViewInit, OnDestroy {
       this.currentPhotoWidth = this.currentPhotoHeight / photoRatio;
     }
 
-    const difference = this.currentPhotoHeight / initialPhotoHeight;
+    const transformationRatio = this.currentPhotoHeight / initialPhotoHeight;
 
-    this.currentFrameHeight *= difference;
-    this.currentFrameWidth *= difference;
-
-    //console.log('photo: width =', this.currentPhotoWidth, 'height =', this.currentPhotoHeight);
-    //console.log('frame: width =', this.currentFrameWidth, 'height =', this.currentFrameHeight);
+    this.currentFrameHeight *= transformationRatio;
+    this.currentFrameWidth *= transformationRatio;
 
     this.photoRef.nativeElement.style.height = this.currentPhotoHeight + 'px';
     this.photoRef.nativeElement.style.width = this.currentPhotoWidth + 'px';
@@ -152,12 +148,33 @@ export class PhotoComponent implements AfterViewInit, OnDestroy {
 
       this.photoService.addPhoto(this.photo).pipe(takeUntil(this.requestCancel$), takeUntil(this.onDestroy$))
         .subscribe(
-          (result) => this.photoSaved.emit(result.photoUrl),
-          (error) => console.log(error.error || error.message)
+          (result) => {
+            this.adjustOpacity(this.photoWrapperRef, 0);
+            setTimeout(() => {
+              this.photoSaved.emit(result.photoUrl)
+            }, this.opacityTiming);
+          },
+          (error) => {
+            this.adjustOpacity(this.photoWrapperRef, 0);
+            setTimeout(() => {
+              this.photoError.emit(error.error.message)
+            }, this.opacityTiming);
+          }
         );
-    } else {
-      console.log('image is not valid');
     }
+  }
+
+  private adjustOpacity(elementRef: ElementRef, value: number): void {
+    if (value >= 0 && value <= 1) {
+      elementRef.nativeElement.style.opacity = value;
+    }
+  }
+
+  onCloseClick(): void {
+    this.adjustOpacity(this.photoWrapperRef, 0);
+    setTimeout(() => {
+      this.close.emit();
+    }, this.opacityTiming);
   }
 
   ngOnDestroy(): void {

@@ -16,6 +16,7 @@ import { TextareaAutosizeDirective } from './training-plan/common/directives/tex
 import { TableEditContextMenuComponent } from './shared/table-edit-context-menu/table-edit-context-menu.component';
 import { TruncatePipe } from './training-plan/common/pipes/truncate.pipe';
 import { PhotoComponent } from './shared/photo/photo.component';
+import { DragDirective } from './shared/common/directives/drag.directive';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { PhotoComponent } from './shared/photo/photo.component';
     TextareaAutosizeDirective,
     TableEditContextMenuComponent,
     TruncatePipe,
-    PhotoComponent
+    PhotoComponent,
+    DragDirective
   ],
   imports: [
     BrowserModule,

@@ -15,7 +15,7 @@
     background-color: var(--transparent);
     padding: var(--padding);
     opacity: 0;
-    transition: opacity 0.3s ease-out;
+    transition: opacity 0.5s ease-in-out;
 
     --clr-green: #47d764;
 }
@@ -23,7 +23,6 @@
 .photo__container {
     opacity: 1;
     background-color: var(--clr-dark);
-    width: 100%;
     height: min-content;
     box-shadow: 0 0 3px #63636363;
     padding: 10px;
@@ -41,7 +40,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 15px auto;
+    margin: 15px;
 }
 
 .editor__photo {

@@ -6,14 +6,14 @@
     <div class="table-edit__header">
       <div 
         class="close-icon"
-        (click)="onAction(null)"
+        (click)="onCloseClick()"
       ></div>
     </div>
     <ul class="table-edit__menu">
       <li 
         *ngFor="let action of actions"
         class="table-edit-menu__item"
-        (click)="onAction(action.key)"
+        (click)="onTableActionClick(action.key)"
       >
         {{ action.value }}
       </li>

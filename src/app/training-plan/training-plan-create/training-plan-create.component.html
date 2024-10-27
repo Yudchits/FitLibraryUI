@@ -238,9 +238,11 @@
 <app-table-edit-context-menu 
   *ngIf="showTableEditMenu"
   (actionSelected)="onTableEditActionSelected($event)"
+  (close)="onTableEditClose()"
 ></app-table-edit-context-menu>
 <app-photo
   *ngIf="showPhotoEdit"
   [photo]="photo"
   (photoSaved)="onPhotoSaved($event)"
+  (close)="onPhotoClose()"
 ></app-photo>
