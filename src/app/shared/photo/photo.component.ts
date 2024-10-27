@@ -10,8 +10,8 @@ import {
   Output,
   ViewChild, 
 } from '@angular/core';
-import { Photo } from '../models/photo.model';
-import { PhotoService } from '../services/photo.service';
+import { Photo } from '../common/models/photo.model';
+import { PhotoService } from '../common/services/photo.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 

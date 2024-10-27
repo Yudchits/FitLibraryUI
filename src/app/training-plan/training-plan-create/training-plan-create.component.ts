@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableEditAction } from '../common/enums/table-edit-action.enum';
 import { TrainingPlanService } from '../common/services/training-plan.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Photo } from 'src/app/shared/models/photo.model';
+import { Photo } from 'src/app/shared/common/models/photo.model';
 import { Weekday } from '../common/helpers/weekday';
 
 @Component({
