@@ -15,6 +15,7 @@ import { TrainingPlanCreateComponent } from './training-plan/training-plan-creat
 import { TextareaAutosizeDirective } from './training-plan/common/directives/textarea-autosize.directive';
 import { TableEditContextMenuComponent } from './shared/table-edit-context-menu/table-edit-context-menu.component';
 import { TruncatePipe } from './training-plan/common/pipes/truncate.pipe';
+import { PhotoComponent } from './shared/photo/photo.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { TruncatePipe } from './training-plan/common/pipes/truncate.pipe';
     TrainingPlanCreateComponent,
     TextareaAutosizeDirective,
     TableEditContextMenuComponent,
-    TruncatePipe
+    TruncatePipe,
+    PhotoComponent
   ],
   imports: [
     BrowserModule,

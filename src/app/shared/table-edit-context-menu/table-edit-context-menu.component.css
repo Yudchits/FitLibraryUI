@@ -5,19 +5,21 @@
     z-index: 1000;
     top: 0;
     left: 0;
-    background-color: transparent;
+    background-color: var(--transparent);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
 }
 
 .table-edit__container {
     height: min-content;
     width: min-content;
     background-color: var(--clr-dark);
-    box-shadow: 0 0 7px var(--clr-light);
-    padding: 10px 10px 15px;
+    box-shadow: 0 0 3px #3f3f3f;
+    padding: 10px 15px 15px;
     border-radius: 7px;
 }
 

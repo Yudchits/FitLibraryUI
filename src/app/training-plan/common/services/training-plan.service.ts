@@ -31,7 +31,7 @@ export class TrainingPlanService {
     return this.http.get<TrainingPlanFull>(this.trainingPlanApi + this.getByIdUrl + id);
   }
 
-  createTrainingPlan(formData: FormData): Observable<HttpResponse<any> | HttpErrorResponse> {
-    return this.http.post<HttpResponse<any> | HttpErrorResponse>(this.trainingPlanApi + this.createUrl, formData);
+  createTrainingPlan(form: NgForm): Observable<HttpResponse<any> | HttpErrorResponse> {
+    return this.http.post<HttpResponse<any> | HttpErrorResponse>(this.trainingPlanApi + this.createUrl, form);
   }
 }

@@ -1,30 +1,51 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TableEditAction } from '../common/enums/table-edit-action.enum';
 import { TrainingPlanService } from '../common/services/training-plan.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { Photo } from 'src/app/shared/models/photo.model';
+import { Weekday } from '../common/helpers/weekday';
 
 @Component({
   selector: 'app-training-plan-create',
   templateUrl: './training-plan-create.component.html',
   styleUrls: ['./training-plan-create.component.css']
 })
-export class TrainingPlanCreateComponent implements OnInit {
+export class TrainingPlanCreateComponent implements OnInit, AfterViewInit {
 
   createForm: FormGroup;
   showTableEditMenu: boolean = false;
   selectedRow: number;
-  selectedFileName: string;
+  showPhotoEdit: boolean = false;
+  photo: Photo = new Photo();
+  photoUrl: string;
+  weekdays: number[];
 
-  constructor(private formBuilder: FormBuilder, private trainingPlanService: TrainingPlanService) { }
+  @ViewChild('photoContainer') photoContainerRef: ElementRef;
+
+  constructor(private formBuilder: FormBuilder, 
+    private trainingPlanService: TrainingPlanService,
+  ) { }
 
   public get exercises(): FormArray {
     return this.createForm.get('exercises') as FormArray;
   }
 
+  @HostListener('window:resize', ['$event'])
+  onWindowResize(event?: Event): void {
+    const photoWidth = this.photoContainerRef.nativeElement.clientWidth;
+    const photoHeight = photoWidth / 1.5;
+    this.photoContainerRef.nativeElement.style.height = photoHeight + 'px';
+  }
+
   ngOnInit(): void {
     this.createForm = this.initCreateForm();
     this.exercises.push(this.createExerciseRow());
+    this.weekdays = Object.values(Weekday).filter(value => typeof value === 'number') as number[];
+  }
+
+  ngAfterViewInit(): void {
+    this.onWindowResize();
   }
 
   private initCreateForm(): FormGroup {
@@ -33,10 +54,11 @@ export class TrainingPlanCreateComponent implements OnInit {
       name: ['', [Validators.required, Validators.maxLength(64)]],
       description: ['', [Validators.required, Validators.maxLength(128)]],
       sport: ['', [Validators.required, Validators.maxLength(64)]],
-      image: [null, Validators.required],
+      photo: [''], 
       price: [null, [Validators.required, Validators.pattern(/^\d{1,8}(\.\d{1,2})?$/)]],
       rating: [0],
-      exercises: this.formBuilder.array([])
+      exercises: this.formBuilder.array([]),
+      creatorId: 1
     });
   }
 
@@ -48,32 +70,23 @@ export class TrainingPlanCreateComponent implements OnInit {
       sets: [null],
       repetitions: [null],
       weight: [null],
-      time: [''],
-      restPeriod: ['']
+      time: [null],
+      restPeriod: [null]
     });
   }
 
   onSaveClick(): void {
-    const formData = new FormData();
-    formData.append('name', this.createForm.get('name').value);
-    formData.append('description', this.createForm.get('description').value);
-    formData.append('image', this.createForm.get('image').value);
-    formData.append('sport', this.createForm.get('sport').value);
-    formData.append('price', this.createForm.get('price').value);
-    formData.append('rating', this.createForm.get('rating').value);
-    formData.append('creatorId', '1'); //change it
-    formData.append('exercises', this.createForm.get('exercises').value);
-
-    this.trainingPlanService.createTrainingPlan(formData).subscribe((response: HttpResponse<any>) => {
-      console.log(response);
-      
-    }, (error: HttpErrorResponse) => {
-      console.log(error);
-    })
+    console.log(this.createForm.value);
+    
+    this.trainingPlanService.createTrainingPlan(this.createForm.value)
+      .subscribe((response: HttpResponse<any>) => {
+        console.log(response);
+      }, (error: HttpErrorResponse) => {
+        console.log(error);
+      })
   }
 
   onEditTableClick(event: MouseEvent): void {
-    event.preventDefault();
     this.showTableEditMenu = true;
   }
 
@@ -81,7 +94,7 @@ export class TrainingPlanCreateComponent implements OnInit {
     this.selectedRow = row;
   }
 
-  onActionSelected(action: TableEditAction): void {
+  onTableEditActionSelected(action: TableEditAction): void {
     this.showTableEditMenu = false;
 
     switch (action) {
@@ -109,13 +122,22 @@ export class TrainingPlanCreateComponent implements OnInit {
     this.exercises.removeAt(row);
   }
 
-  onImageChanged(event: Event): void {
+  onImageChange(event: Event): void {
     const input = event.target as HTMLInputElement;
-    
+  
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
-      this.createForm.get('image').patchValue(file);
-      this.selectedFileName = file.name;
+
+      this.photo.photo = file;
+      this.showPhotoEdit = true;          
+
+      input.value = null;
     }
+  }
+
+  onPhotoSaved(photoUrl: string): void {
+    this.showPhotoEdit = false;
+    this.createForm.get('photo').patchValue(photoUrl);
+    this.photoUrl = photoUrl;
   }
 }

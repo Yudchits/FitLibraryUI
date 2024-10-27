@@ -1,0 +1,95 @@
+.photo {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    color: var(--clr-light);
+    background-color: var(--transparent);
+    padding: var(--padding);
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+
+    --clr-green: #47d764;
+}
+
+.photo__container {
+    opacity: 1;
+    background-color: var(--clr-dark);
+    width: 100%;
+    height: min-content;
+    box-shadow: 0 0 3px #63636363;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.close-icon::before, .close-icon::after {
+    background-color: var(--clr-light);
+}
+
+.editor {
+    position: relative;
+    width: min-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 15px auto;
+}
+
+.editor__photo {
+}
+
+.editor__frame {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 75px;
+    height: 50px;
+    border: 2px solid var(--clr-light)
+}
+
+.editor__error {
+    text-align: center;
+    padding: 15px;
+}
+
+.submit__items {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 7px;
+}
+
+.submit__btn {
+    color: var(--clr-light);
+    background-color: var(--clr-green);
+    padding: 7px 14px;
+    cursor: pointer;
+    transform: 0.8s;
+    transition-delay: 0.1s;
+}
+
+.submit__btn:hover {
+    opacity: 0.7;
+}
+
+.submit__btn::before {
+    border: none;
+    border-top: 2px solid var(--clr-green);
+    border-left: 2px solid var(--clr-green);
+}
+
+.submit__btn::after {
+    border: none;
+    border-bottom: 2px solid var(--clr-green);
+    border-right: 2px solid var(--clr-green);
+}

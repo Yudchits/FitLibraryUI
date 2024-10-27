@@ -12,6 +12,40 @@
         >
           <div class="create-form__items">
             <div class="create-form__item">
+              <div 
+                #photoContainer
+                class="image__container"
+              >
+                <label 
+                  for="image"
+                  class="image-label"
+                >
+                  <span *ngIf="!photoUrl">
+                    Выберите изображение&nbsp;
+                    <img 
+                      src="../../../assets/training-plan/image.svg" 
+                      alt=""
+                      width="21px"
+                      class="image-label-icon"
+                    >
+                  </span>
+                </label>
+                <input 
+                  type="file" 
+                  id="image"
+                  class="image-input"
+                  (change)="onImageChange($event)"
+                >
+                <img
+                  *ngIf="photoUrl"
+                  [src]="photoUrl" 
+                  width="300px"
+                  alt="Изображение"
+                  class="image-image"
+                >
+              </div>
+            </div>
+            <div class="create-form__item">
               <input 
                 class="create-form-input"
                 id="name"
@@ -73,28 +107,7 @@
                 for="price"
               >
                 Цена
-              </label> 
-            </div>
-            <div class="create-form__item">
-              <input
-                class="create-form-input" 
-                id="image"
-                type="file"
-                required
-                (change)="onImageChanged($event)"
-              >
-              <input 
-                class="create-form-file-name" 
-                [(ngModel)]="selectedFileName"
-                [ngModelOptions]="{standalone: true}"
-                disabled
-              >
-              <label 
-                class="create-form-label"
-                for="image"
-              >
-                Изображение
-              </label> 
+              </label>
             </div>
             <div class="create-form__item create-form__table">
               <div class="create-form-table__container">
@@ -143,11 +156,17 @@
                         >
                       </td>
                       <td>
-                        <input 
-                          type="text" 
-                          class="create-form-input"
+                        <select 
+                          class="create-form-select"
                           formControlName="weekday"
                         >
+                          <option 
+                            *ngFor="let weekday of weekdays"
+                            [ngValue]="weekday" 
+                          >
+                            {{ weekday | weekday }}
+                          </option>
+                        </select>
                       </td>
                       <td>
                         <input 
@@ -218,5 +237,10 @@
 
 <app-table-edit-context-menu 
   *ngIf="showTableEditMenu"
-  (actionSelected)="onActionSelected($event)"
+  (actionSelected)="onTableEditActionSelected($event)"
 ></app-table-edit-context-menu>
+<app-photo
+  *ngIf="showPhotoEdit"
+  [photo]="photo"
+  (photoSaved)="onPhotoSaved($event)"
+></app-photo>

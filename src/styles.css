@@ -4,6 +4,7 @@
     --clr-dark: #181320;
     --clr-light: #f0f0f0;
     --padding: 15px;
+    --transparent: #000000e2;
 }
 
 *,
@@ -118,6 +119,7 @@ textarea {
     height: 15px;
     opacity: 0.3;
     transition: opacity 0.3s ease-in-out;
+    position: relative;
 }
 
 .close-icon:hover {

@@ -1,0 +1,49 @@
+<div
+  #photoWrapper
+  class="photo"
+>
+  <div class="photo__container">
+    <div
+      #headerSection 
+      class="header"
+    >
+      <div class="close-icon"></div>
+    </div>
+    <div class="editor">
+      <img 
+        #photo
+        *ngIf="isPhotoProccessed && photoSrc"
+        [src]="photoSrc" 
+        alt=""
+        height="50px"
+        class="editor__photo"
+      >
+      <div
+        #frame
+        *ngIf="isPhotoProccessed && photoSrc" 
+        class="editor__frame"
+      ></div>
+      <span 
+        *ngIf="isPhotoProccessed && !photoSrc"
+        class="editor__error"
+      >
+        Невозможно обработать выбранное изображение
+      </span>
+    </div>
+    <div
+      #submitSection 
+      class="submit"
+    >
+      <div class="submit__items">
+        <div class="submit__item">
+          <button 
+            (click)="onSaveClick()"
+            class="submit__btn"
+          >
+            Сохранить
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
