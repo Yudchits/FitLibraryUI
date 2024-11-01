@@ -14,6 +14,7 @@ import { Photo } from '../common/models/photo.model';
 import { PhotoService } from '../common/services/photo.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { CdkDragEnd } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-photo',
@@ -101,66 +102,69 @@ export class PhotoComponent implements AfterViewInit, OnDestroy {
   }
 
   private resizePhoto(): void {
-    this.currentFrameHeight = this._minFrameHeight;
-    this.currentFrameWidth = this.currentFrameHeight * this._widthToHeightRatio;
-
-    const photoRatio = this.currentPhotoHeight / this.currentPhotoWidth;
-
-    this.currentPhotoHeight = this.currentFrameHeight + 40;
-    this.currentPhotoWidth = this.currentPhotoHeight / photoRatio;
-
-    const windowHeight = window.innerHeight;
-    const windowWidth = window.innerWidth;
-
-    const windowPadding = 30;
-    const photoPadding = 20;
-    const editorMargin = 30;
-    const boxShadow = 6;
-    const headerSectionHeight = this.headerSectionRef.nativeElement.clientHeight;
-    const submitSectionHeight = this.submitSectionRef.nativeElement.clientHeight;
-
-    const widthLimit = windowWidth - windowPadding - photoPadding - editorMargin - boxShadow;
-    const heightLimit = windowHeight - windowPadding - photoPadding - editorMargin - boxShadow 
-      - headerSectionHeight - submitSectionHeight;
-
-    const initialPhotoHeight = this.currentPhotoHeight;
-
-    while ((this.currentPhotoHeight <= heightLimit) 
-          && ((this.currentPhotoWidth <= widthLimit) && (((this.currentPhotoHeight + 1) / photoRatio) < widthLimit))) {
-      this.currentPhotoHeight++;
+    if (this.photoRef) {
+      this.currentFrameHeight = this._minFrameHeight;
+      this.currentFrameWidth = this.currentFrameHeight * this._widthToHeightRatio;
+  
+      const photoRatio = this.currentPhotoHeight / this.currentPhotoWidth;
+  
+      this.currentPhotoHeight = this.currentFrameHeight + 40;
       this.currentPhotoWidth = this.currentPhotoHeight / photoRatio;
+  
+      const windowHeight = window.innerHeight;
+      const windowWidth = window.innerWidth;
+  
+      const windowPadding = 30;
+      const photoPadding = 20;
+      const editorMargin = 30;
+      const boxShadow = 6;
+      const headerSectionHeight = this.headerSectionRef.nativeElement.clientHeight;
+      const submitSectionHeight = this.submitSectionRef.nativeElement.clientHeight;
+  
+      const widthLimit = windowWidth - windowPadding - photoPadding - editorMargin - boxShadow;
+      const heightLimit = windowHeight - windowPadding - photoPadding - editorMargin - boxShadow 
+        - headerSectionHeight - submitSectionHeight;
+  
+      const initialPhotoHeight = this.currentPhotoHeight;
+  
+      while ((this.currentPhotoHeight <= heightLimit) 
+            && ((this.currentPhotoWidth <= widthLimit) && (((this.currentPhotoHeight + 1) / photoRatio) < widthLimit))) {
+        this.currentPhotoHeight++;
+        this.currentPhotoWidth = this.currentPhotoHeight / photoRatio;
+      }
+  
+      const transformationRatio = this.currentPhotoHeight / initialPhotoHeight;
+  
+      this.currentFrameHeight *= transformationRatio;
+      this.currentFrameWidth *= transformationRatio;
+  
+      this.photoRef.nativeElement.style.height = this.currentPhotoHeight + 'px';
+      this.photoRef.nativeElement.style.width = this.currentPhotoWidth + 'px';
+      this.frameRef.nativeElement.style.height = this.currentFrameHeight + 'px';
+      this.frameRef.nativeElement.style.width = this.currentFrameWidth + 'px';
     }
-
-    const transformationRatio = this.currentPhotoHeight / initialPhotoHeight;
-
-    this.currentFrameHeight *= transformationRatio;
-    this.currentFrameWidth *= transformationRatio;
-
-    this.photoRef.nativeElement.style.height = this.currentPhotoHeight + 'px';
-    this.photoRef.nativeElement.style.width = this.currentPhotoWidth + 'px';
-    this.frameRef.nativeElement.style.height = this.currentFrameHeight + 'px';
-    this.frameRef.nativeElement.style.width = this.currentFrameWidth + 'px';
   }
 
   onSaveClick(): void {
     if (this.photoSrc) {
       this.requestCancel$.next();
 
-      this.photoService.addPhoto(this.photo).pipe(takeUntil(this.requestCancel$), takeUntil(this.onDestroy$))
-        .subscribe(
-          (result) => {
-            this.adjustOpacity(this.photoWrapperRef, 0);
-            setTimeout(() => {
-              this.photoSaved.emit(result.photoUrl)
-            }, this.opacityTiming);
-          },
-          (error) => {
-            this.adjustOpacity(this.photoWrapperRef, 0);
-            setTimeout(() => {
-              this.photoError.emit(error.error.message)
-            }, this.opacityTiming);
-          }
-        );
+      this.photoService.addPhoto(this.photo)
+        .pipe(takeUntil(this.requestCancel$), takeUntil(this.onDestroy$))
+          .subscribe(
+            (result) => {
+              this.adjustOpacity(this.photoWrapperRef, 0);
+              setTimeout(() => {
+                this.photoSaved.emit(result.photoUrl)
+              }, this.opacityTiming);
+            },
+            (error) => {
+              this.adjustOpacity(this.photoWrapperRef, 0);
+              setTimeout(() => {
+                this.photoError.emit(error.error.message)
+              }, this.opacityTiming);
+            }
+          );
     }
   }
 
@@ -175,6 +179,15 @@ export class PhotoComponent implements AfterViewInit, OnDestroy {
     setTimeout(() => {
       this.close.emit();
     }, this.opacityTiming);
+  }
+
+  onDragEnded(event: CdkDragEnd): void {
+    const draggableElement = event.source.element.nativeElement;
+    const dragRect = draggableElement.getBoundingClientRect();
+    const photoRect = this.photoRef.nativeElement.getBoundingClientRect();
+
+    this.photo.left = dragRect.left - photoRect.left;
+    this.photo.top = dragRect.top - photoRect.top;
   }
 
   ngOnDestroy(): void {

@@ -21,12 +21,19 @@
 }
 
 .photo__container {
-    opacity: 1;
     background-color: var(--clr-dark);
+    min-width: 300px;
     height: min-content;
     box-shadow: 0 0 3px #63636363;
     padding: 10px;
     border-radius: 3px;
+}
+
+.no-select {
+    user-select: none; /* Для современных браузеров */
+    -webkit-user-select: none; /* Для Safari */
+    -moz-user-select: none; /* Для Firefox */
+    -ms-user-select: none; /* Для Internet Explorer/Edge */
 }
 
 .close-icon::before, .close-icon::after {
@@ -34,13 +41,16 @@
 }
 
 .editor {
-    position: relative;
-    width: min-content;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 15px;
+    padding: 15px;
+}
+
+.editor__container {
+    position: relative;
 }
 
 .editor__photo {
@@ -56,6 +66,7 @@
 }
 
 .editor__error {
+    width: 100%;
     text-align: center;
     padding: 15px;
 }

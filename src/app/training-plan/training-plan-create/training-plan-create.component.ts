@@ -114,6 +114,10 @@ export class TrainingPlanCreateComponent implements OnInit, AfterViewInit {
     this.selectedRow = null;
   }
 
+  onTableEditClose(): void {
+    this.showTableEditMenu = false;
+  }
+
   private addRow(row: number): void {
     this.exercises.insert(row, this.createExerciseRow());
   }
@@ -139,5 +143,9 @@ export class TrainingPlanCreateComponent implements OnInit, AfterViewInit {
     this.showPhotoEdit = false;
     this.createForm.get('photo').patchValue(photoUrl);
     this.photoUrl = photoUrl;
+  }
+
+  onPhotoClose(): void {
+    this.showPhotoEdit = false;
   }
 }

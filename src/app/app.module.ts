@@ -16,7 +16,7 @@ import { TextareaAutosizeDirective } from './training-plan/common/directives/tex
 import { TableEditContextMenuComponent } from './shared/table-edit-context-menu/table-edit-context-menu.component';
 import { TruncatePipe } from './training-plan/common/pipes/truncate.pipe';
 import { PhotoComponent } from './shared/photo/photo.component';
-import { DragDirective } from './shared/common/directives/drag.directive';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -32,14 +32,14 @@ import { DragDirective } from './shared/common/directives/drag.directive';
     TableEditContextMenuComponent,
     TruncatePipe,
     PhotoComponent,
-    DragDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DragDropModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

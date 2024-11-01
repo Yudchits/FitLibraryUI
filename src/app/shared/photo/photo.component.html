@@ -2,7 +2,7 @@
   #photoWrapper
   class="photo"
 >
-  <div class="photo__container">
+  <div class="photo__container no-select">
     <div
       #headerSection 
       class="header"
@@ -13,25 +13,30 @@
       ></div>
     </div>
     <div class="editor">
-      <img 
-        #photo
-        *ngIf="isPhotoProccessed && photoSrc"
-        [src]="photoSrc" 
-        alt=""
-        height="50px"
-        class="editor__photo"
-      >
-      <div
-        #frame
-        *ngIf="isPhotoProccessed && photoSrc" 
-        class="editor__frame"
-      ></div>
-      <span 
-        *ngIf="isPhotoProccessed && !photoSrc"
-        class="editor__error"
-      >
-        Невозможно обработать выбранное изображение
-      </span>
+      <div class="editor__container">
+        <img 
+          #photo
+          *ngIf="isPhotoProccessed && photoSrc"
+          [src]="photoSrc" 
+          alt=""
+          height="50px"
+          class="editor__photo"
+        >
+        <div
+          #frame
+          *ngIf="isPhotoProccessed && photoSrc" 
+          class="editor__frame"
+          cdkDragBoundary=".editor__container"
+          cdkDrag
+          (cdkDragEnded)="onDragEnded($event)"
+        ></div>
+        <div 
+          *ngIf="isPhotoProccessed && !photoSrc"
+          class="editor__error"
+        >
+          Невозможно обработать выбранное изображение
+        </div>
+      </div>
     </div>
     <div
       #submitSection 
