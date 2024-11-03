@@ -18,7 +18,7 @@
     height: min-content;
     width: min-content;
     background-color: var(--clr-dark);
-    box-shadow: 0 0 3px #3f3f3f;
+    box-shadow: 0 0 3px #63636363;
     padding: 10px 15px 15px;
     border-radius: 7px;
 }
@@ -44,7 +44,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 14px;
 }
 
 .table-edit-menu__item {

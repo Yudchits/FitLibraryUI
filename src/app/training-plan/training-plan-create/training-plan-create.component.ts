@@ -1,21 +1,36 @@
-import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TableEditAction } from '../common/enums/table-edit-action.enum';
+import { 
+  AfterViewInit, 
+  Component, 
+  ElementRef, 
+  HostListener, 
+  OnDestroy, 
+  OnInit, 
+  ViewChild 
+} from '@angular/core';
+import { 
+  FormArray, 
+  FormBuilder, 
+  FormGroup, 
+  Validators 
+} from '@angular/forms';
+import { TableEditAction } from '../../shared/common/enums/table-edit-action.enum';
 import { TrainingPlanService } from '../common/services/training-plan.service';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Photo } from 'src/app/shared/common/models/photo.model';
 import { Weekday } from '../common/helpers/weekday';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-training-plan-create',
   templateUrl: './training-plan-create.component.html',
   styleUrls: ['./training-plan-create.component.css']
 })
-export class TrainingPlanCreateComponent implements OnInit, AfterViewInit {
+export class TrainingPlanCreateComponent implements OnInit, AfterViewInit, OnDestroy {
 
   createForm: FormGroup;
   showTableEditMenu: boolean = false;
-  selectedRow: number;
+  selectedRow: number = null;
   showPhotoEdit: boolean = false;
   photo: Photo = new Photo();
   photoUrl: string;
@@ -23,11 +38,14 @@ export class TrainingPlanCreateComponent implements OnInit, AfterViewInit {
 
   @ViewChild('photoContainer') photoContainerRef: ElementRef;
 
+  private onDestroy$ = new Subject<void>();
+  private requestCancel$ = new Subject<void>();
+
   constructor(private formBuilder: FormBuilder, 
     private trainingPlanService: TrainingPlanService,
   ) { }
 
-  public get exercises(): FormArray {
+  get exercises(): FormArray {
     return this.createForm.get('exercises') as FormArray;
   }
 
@@ -79,14 +97,16 @@ export class TrainingPlanCreateComponent implements OnInit, AfterViewInit {
     console.log(this.createForm.value);
     
     this.trainingPlanService.createTrainingPlan(this.createForm.value)
-      .subscribe((response: HttpResponse<any>) => {
-        console.log(response);
-      }, (error: HttpErrorResponse) => {
-        console.log(error);
-      })
+      .pipe(takeUntil(this.requestCancel$), takeUntil(this.onDestroy$))
+        .subscribe((response: HttpResponse<any>) => {
+          console.log(response);
+        }, (error: HttpErrorResponse) => {
+          console.log(error);
+        });
   }
 
   onEditTableClick(event: MouseEvent): void {
+    event.preventDefault();
     this.showTableEditMenu = true;
   }
 
@@ -147,5 +167,10 @@ export class TrainingPlanCreateComponent implements OnInit, AfterViewInit {
 
   onPhotoClose(): void {
     this.showPhotoEdit = false;
+  }
+
+  ngOnDestroy(): void {
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 }

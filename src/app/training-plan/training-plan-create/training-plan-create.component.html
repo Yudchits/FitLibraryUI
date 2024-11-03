@@ -110,22 +110,22 @@
               </label>
             </div>
             <div class="create-form__item create-form__table">
-              <div class="create-form-table__container">
-                <div class="create-form-table__actions">
-                  <div 
-                    *ngIf="selectedRow != undefined"
-                    class="create-form-table__action"
-                  >
-                    <button (click)="onEditTableClick($event)">
-                      <img 
-                        src="../../../assets/training-plan/edit.svg" 
-                        alt="Edit"
-                        width="21px"
-                        class="edit-icon"
-                      >
-                    </button>
-                  </div>
+              <div class="create-form-table__actions">
+                <div 
+                  [class.invisible]="selectedRow == null"
+                  class="create-form-table__action"
+                >
+                  <button (click)="onEditTableClick($event)">
+                    <img 
+                      src="../../../assets/training-plan/edit.svg" 
+                      alt="Edit"
+                      width="21px"
+                      class="edit-icon"
+                    >
+                  </button>
                 </div>
+              </div>
+              <div class="create-form-table__container">
                 <table 
                   formArrayName="exercises"
                   class="create-form-table"
@@ -142,7 +142,7 @@
                       <th>Отдых</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody (contextmenu)="onEditTableClick($event)">
                     <tr 
                       *ngFor="let exercise of exercises.controls; let row = index" 
                       [formGroupName]="row"

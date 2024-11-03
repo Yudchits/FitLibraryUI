@@ -16,22 +16,22 @@
       <div class="editor__container">
         <img 
           #photo
-          *ngIf="isPhotoProccessed && photoSrc"
+          *ngIf="photoSrc"
           [src]="photoSrc" 
           alt=""
-          height="50px"
+          height="80px"
           class="editor__photo"
         >
         <div
           #frame
-          *ngIf="isPhotoProccessed && photoSrc" 
+          *ngIf="photoSrc" 
           class="editor__frame"
           cdkDragBoundary=".editor__container"
           cdkDrag
           (cdkDragEnded)="onDragEnded($event)"
         ></div>
         <div 
-          *ngIf="isPhotoProccessed && !photoSrc"
+          *ngIf="!photoSrc"
           class="editor__error"
         >
           Невозможно обработать выбранное изображение

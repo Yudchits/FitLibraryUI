@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
-import { TableEditAction } from 'src/app/training-plan/common/enums/table-edit-action.enum';
+import { TableEditAction } from 'src/app/shared/common/enums/table-edit-action.enum';
 
 @Component({
   selector: 'app-table-edit-context-menu',
@@ -13,6 +13,8 @@ export class TableEditContextMenuComponent implements AfterViewInit {
 
   @ViewChild('tableEditWrapper') tableEditWrapperRef: ElementRef;
 
+  private readonly opacityTiming: number = 500;
+
   actions = Object.keys(TableEditAction)
     .map(key => ({ key, value: TableEditAction[key as keyof typeof TableEditAction] }));
 
@@ -20,22 +22,27 @@ export class TableEditContextMenuComponent implements AfterViewInit {
   
   ngAfterViewInit(): void {
     if (this.tableEditWrapperRef) {
+      this.adjustOpacityWithDelay(this.tableEditWrapperRef, 1, this.opacityTiming);
       this.tableEditWrapperRef.nativeElement.style.opacity = 1;
     }
   }
 
-  onTableActionClick(action: string): void {
-    this.tableEditWrapperRef.nativeElement.style.opacity = 0;
-    const selectedAction = TableEditAction[action as keyof typeof TableEditAction];
+  private adjustOpacityWithDelay(elementRef: ElementRef, value: number, delayMs: number): void {
     setTimeout(() => {
-      this.actionSelected.emit(selectedAction);
-    }, 500);
+      if (value >= 0 && value <= 1) {
+        elementRef.nativeElement.style.opacity = value;
+      }
+    }, delayMs);
+  }
+
+  onTableActionClick(action: string): void {
+    const selectedAction = TableEditAction[action as keyof typeof TableEditAction];
+    this.adjustOpacityWithDelay(this.tableEditWrapperRef, 0, this.opacityTiming);
+    this.actionSelected.emit(selectedAction);
   }
 
   onCloseClick(): void {
-    this.tableEditWrapperRef.nativeElement.style.opacity = 0;
-    setTimeout(() => {
-      this.close.emit();
-    }, 500);
+    this.adjustOpacityWithDelay(this.tableEditWrapperRef, 0, this.opacityTiming);
+    this.close.emit();
   }
 }
