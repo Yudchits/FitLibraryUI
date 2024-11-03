@@ -9,9 +9,9 @@ import { TrainingPlanCreateComponent } from './training-plan/training-plan-creat
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'training-plan', component: TrainingPlanModuleComponent, children: [
-    { path: 'training-plans', component: TrainingPlanMainComponent },
-    { path: 'training-plans/create', component: TrainingPlanCreateComponent },
-    { path: 'training-plans/:id', component: TrainingPlanDetailComponent }
+    { path: '', component: TrainingPlanMainComponent },
+    { path: 'create', component: TrainingPlanCreateComponent },
+    { path: ':id', component: TrainingPlanDetailComponent }
   ]}
 ];
 

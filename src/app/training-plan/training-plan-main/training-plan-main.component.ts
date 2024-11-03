@@ -44,7 +44,7 @@ export class TrainingPlanMainComponent implements OnInit {
   }
 
   onTrainingPlanClick(trainingPlan: TrainingPlanShort): void {
-    this.router.navigate(['/training-plan/training-plans', trainingPlan.id]);
+    this.router.navigate(['/training-plans', trainingPlan.id]);
   }
 
 }
