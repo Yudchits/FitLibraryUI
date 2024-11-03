@@ -149,22 +149,28 @@ export class PhotoComponent implements AfterViewInit, OnDestroy {
   }
 
   onSaveClick(): void {
-    if (this.photoSrc) {
-      this.requestCancel$.next();
+    const naturalPhotoHeight = this.photoRef.nativeElement.naturalHeight;
+    const naturalToCurrentRatio = naturalPhotoHeight / this.currentPhotoHeight;
+    const naturalFrameHeight = this.currentFrameHeight * naturalToCurrentRatio;
+    const naturalFrameWidth = this.currentFrameWidth * naturalToCurrentRatio; 
 
-      this.photoService.addPhoto(this.photo)
-        .pipe(takeUntil(this.requestCancel$), takeUntil(this.onDestroy$))
-          .subscribe(
-            (result) => {
-              this.adjustOpacityWithDelay(this.photoWrapperRef, 0, this._opacityDelay);
-              this.photoSaved.emit(result.photoUrl)
-            },
-            (error) => {
-              this.adjustOpacityWithDelay(this.photoWrapperRef, 0, this._opacityDelay);
-              this.photoError.emit(error.error.message)
-            }
-          );
-    }
+    this.photo.height = naturalFrameHeight;
+    this.photo.width = naturalFrameWidth;
+
+    this.requestCancel$.next();
+
+    this.photoService.addPhoto(this.photo)
+      .pipe(takeUntil(this.requestCancel$), takeUntil(this.onDestroy$))
+        .subscribe(
+          (result) => {
+            this.adjustOpacityWithDelay(this.photoWrapperRef, 0, this._opacityDelay);
+            this.photoSaved.emit(result.photoUrl)
+          },
+          (error) => {
+            this.adjustOpacityWithDelay(this.photoWrapperRef, 0, this._opacityDelay);
+            this.photoError.emit(error.error.message)
+          }
+        );
   }
 
   private adjustOpacityWithDelay(elementRef: ElementRef, value: number, delayMs: number): void {

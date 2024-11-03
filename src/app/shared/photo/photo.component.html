@@ -44,7 +44,8 @@
     >
       <div class="submit__items">
         <div class="submit__item">
-          <button 
+          <button
+            *ngIf="photoSrc" 
             (click)="onSaveClick()"
             class="submit__btn"
           >
