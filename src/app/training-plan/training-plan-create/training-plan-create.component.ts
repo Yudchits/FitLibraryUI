@@ -165,6 +165,10 @@ export class TrainingPlanCreateComponent implements OnInit, AfterViewInit, OnDes
     this.photoUrl = photoUrl;
   }
 
+  onPhotoError(message): void {
+    console.log(message);
+  }
+
   onPhotoClose(): void {
     this.showPhotoEdit = false;
   }

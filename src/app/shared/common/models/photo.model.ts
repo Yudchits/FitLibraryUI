@@ -1,7 +1,9 @@
 export class Photo {
     public photo: File;
-    public top: number;
-    public left: number;
-    public width: number;
-    public height: number;
+    public frameTop: number;
+    public frameLeft: number;
+    public frameWidth: number;
+    public frameHeight: number;
+    public photoWidth: number = 750;
+    public photoHeight: number = 500;
 }

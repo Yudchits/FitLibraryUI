@@ -20,10 +20,12 @@ export class PhotoService {
   addPhoto(photo: Photo): Observable<{ photoUrl: string }> {
     const formData = new FormData();
     formData.append('photo', photo.photo);
-    formData.append('top', photo.top.toString());
-    formData.append('left', photo.left.toString());
-    formData.append('width', photo.width.toString());
-    formData.append('height', photo.height.toString());
+    formData.append('frameTop', Math.floor(photo.frameTop).toString());
+    formData.append('frameLeft', Math.floor(photo.frameLeft).toString());
+    formData.append('frameWidth', Math.floor(photo.frameWidth).toString());
+    formData.append('frameHeight', Math.floor(photo.frameHeight).toString());
+    formData.append('photoWidth', Math.floor(photo.photoWidth).toString());
+    formData.append('photoHeight', Math.floor(photo.photoHeight).toString());
     return this.http.post<{ photoUrl: string }>(this.apiUrl + this.addUrl, formData);
   }
 }

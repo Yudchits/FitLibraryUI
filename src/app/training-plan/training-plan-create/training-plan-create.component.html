@@ -244,5 +244,6 @@
   *ngIf="showPhotoEdit"
   [photo]="photo"
   (photoSaved)="onPhotoSaved($event)"
+  (photoError)="onPhotoError($event)"
   (close)="onPhotoClose()"
 ></app-photo>

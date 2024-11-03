@@ -15,7 +15,6 @@ import { PhotoService } from '../common/services/photo.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { CdkDragEnd } from '@angular/cdk/drag-drop';
-import { PhotoResizerService } from '../common/services/photo-resizer.service';
 
 @Component({
   selector: 'app-photo',
@@ -26,7 +25,7 @@ export class PhotoComponent implements AfterViewInit, OnDestroy {
 
   @Input() photo: Photo;
   @Output() photoSaved: EventEmitter<string> = new EventEmitter<string>();
-  @Output() photoError: EventEmitter<string> = new EventEmitter<string>();
+  @Output() photoError: EventEmitter<any> = new EventEmitter<any>();
   @Output() close: EventEmitter<void> = new EventEmitter<void>();
 
   @ViewChild('photoWrapper') photoWrapperRef: ElementRef;
@@ -53,10 +52,7 @@ export class PhotoComponent implements AfterViewInit, OnDestroy {
   private onDestroy$ = new Subject<void>();
   private requestCancel$ = new Subject<void>();
 
-  constructor(private photoService: PhotoService, 
-    private photoResizerService: PhotoResizerService,
-    private changeDetector: ChangeDetectorRef
-  ) { }
+  constructor(private photoService: PhotoService, private changeDetector: ChangeDetectorRef) { }
 
   ngAfterViewInit(): void {
     if (this.photo && this.photo.photo) {
@@ -132,7 +128,12 @@ export class PhotoComponent implements AfterViewInit, OnDestroy {
 
     const initialPhotoHeight = this.currentPhotoHeight;
 
-    const newPhotoSize = this.photoResizerService.resize(this.currentPhotoWidth, this.currentPhotoHeight, widthLimit, heightLimit);
+    const newPhotoSize = this.calculatePhotoArea(this.currentPhotoWidth, this.currentPhotoHeight, widthLimit, heightLimit);
+
+    if (newPhotoSize.width >= widthLimit || newPhotoSize.height >= heightLimit) {
+      this.photoSrc = null;
+      return;
+    }
 
     this.currentPhotoWidth = newPhotoSize.width;
     this.currentPhotoHeight = newPhotoSize.height;
@@ -148,14 +149,39 @@ export class PhotoComponent implements AfterViewInit, OnDestroy {
     this.frameRef.nativeElement.style.width = this.currentFrameWidth + 'px';
   }
 
+  private calculatePhotoArea(currentWidth: number, 
+    currentHeight: number, 
+    widthLimit: number, 
+    heightLimit: number
+  ): { width: number, height: number } {
+    let resultWidth = currentWidth;
+    let resultHeight = currentHeight;
+
+    const photoRatio = currentWidth / currentHeight;
+
+    if (photoRatio < 1) {
+      while ((resultWidth + 1 < widthLimit) && ((resultWidth + 1) / photoRatio < heightLimit)){
+        resultWidth++;
+        resultHeight = resultWidth / photoRatio;
+      }
+    } else {
+      while ((resultHeight + 1 < heightLimit) && ((resultHeight + 1) * photoRatio < widthLimit)){
+        resultHeight++;
+        resultWidth = resultHeight * photoRatio;
+      }
+    }
+
+    return { width: resultWidth, height: resultHeight };
+  }
+
   onSaveClick(): void {
     const naturalPhotoHeight = this.photoRef.nativeElement.naturalHeight;
     const naturalToCurrentRatio = naturalPhotoHeight / this.currentPhotoHeight;
     const naturalFrameHeight = this.currentFrameHeight * naturalToCurrentRatio;
     const naturalFrameWidth = this.currentFrameWidth * naturalToCurrentRatio; 
 
-    this.photo.height = naturalFrameHeight;
-    this.photo.width = naturalFrameWidth;
+    this.photo.frameHeight = naturalFrameHeight;
+    this.photo.frameWidth = naturalFrameWidth;
 
     this.requestCancel$.next();
 
@@ -168,7 +194,7 @@ export class PhotoComponent implements AfterViewInit, OnDestroy {
           },
           (error) => {
             this.adjustOpacityWithDelay(this.photoWrapperRef, 0, this._opacityDelay);
-            this.photoError.emit(error.error.message)
+            this.photoError.emit(error)
           }
         );
   }
@@ -191,8 +217,11 @@ export class PhotoComponent implements AfterViewInit, OnDestroy {
     const dragRect = draggableElement.getBoundingClientRect();
     const photoRect = this.photoRef.nativeElement.getBoundingClientRect();
 
-    this.photo.left = dragRect.left - photoRect.left;
-    this.photo.top = dragRect.top - photoRect.top;
+    const naturalWidthRatio = this.photoRef.nativeElement.naturalWidth / this.currentPhotoWidth;
+    const naturalHeightRatio = this.photoRef.nativeElement.naturalHeight / this.currentPhotoHeight;
+
+    this.photo.frameLeft = (dragRect.left - photoRect.left) * naturalWidthRatio;
+    this.photo.frameTop = (dragRect.top - photoRect.top) * naturalHeightRatio;
   }
 
   ngOnDestroy(): void {
