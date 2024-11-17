@@ -1,0 +1,149 @@
+.login {
+    background-color: var(--clr-dark);
+    color: var(--clr-light);
+    overflow-x: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    text-transform: uppercase;
+}
+
+.login__header {
+    width: 100%;
+    position: sticky;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: var(--clr-dark);
+}
+
+.login__body {
+    flex-grow: 1;
+}
+
+.login-body__container {
+    height: 100%;
+    padding: var(--padding);
+}
+
+.login-form__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.login-form-header__title {
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+.login-form-header__register {
+    font-size: 80%;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.login-form__message {
+    margin-top: 25px;
+}
+
+.login-form__error {
+    padding: 10px 4px;
+    background-color: #ff00005a;
+    color: #FFFFFF80;
+    text-transform: none;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.login__form {
+    margin: 120px auto;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 15px;
+    box-shadow: rgba(141, 141, 156, 0.2) 0px 7px 29px 0px;
+}
+
+.login-form__container {
+    border-radius: 15px;
+    padding: 15px 15px 10px;
+}
+
+.login-form__items {
+    margin-top: 25px;
+}
+
+.login-form__item {
+    position: relative;
+    margin-top: 30px;
+}
+
+.login-form__item:first-child {
+    margin-top: 0;
+}
+
+.form-input {
+    border: 0;
+    border-bottom: 1px solid var(--clr-light);  
+    background-color: transparent;
+    width: 100%;
+    padding: 4px 0;
+    font-size: inherit;
+    color: var(--clr-light);
+}
+
+.form-input:focus {
+    outline: none; 
+    background-color: transparent;
+}
+
+.form-label {
+    position: absolute;
+	top: 0;
+	left: 0;
+	font-size: inherit;
+	color: var(--clr-light);
+	transition: all 0.5s ease-in-out;
+}
+
+.form-input:focus ~ .form-label,
+.form-input:valid ~ .form-label {
+	top: -14px;
+    font-size: 75%;
+}
+
+.form-message {
+    position: relative;
+}
+
+.form-error {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 80%;
+    text-transform: none;
+    color: red;
+    transition: opacity 0.7s;
+}
+
+.form-error:nth-child() {
+    position: absolute;
+}
+
+.login-form__submit {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.login-form__submit .btn {
+    font-size: 1.2em;
+}
+
+.invisible {
+    opacity: 0;
+}
+
+.visible {
+    opacity: 1;
+}

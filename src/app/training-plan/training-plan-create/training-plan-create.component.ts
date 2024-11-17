@@ -96,13 +96,14 @@ export class TrainingPlanCreateComponent implements OnInit, AfterViewInit, OnDes
   onSaveClick(): void {
     console.log(this.createForm.value);
     
-    this.trainingPlanService.createTrainingPlan(this.createForm.value)
+    this.trainingPlanService.create(this.createForm.value)
       .pipe(takeUntil(this.requestCancel$), takeUntil(this.onDestroy$))
-        .subscribe((response: HttpResponse<any>) => {
-          console.log(response);
-        }, (error: HttpErrorResponse) => {
-          console.log(error);
-        });
+        .subscribe(
+          (response) => {
+          }, 
+          (error) => {
+            console.log(error);
+          });
   }
 
   onEditTableClick(event: MouseEvent): void {

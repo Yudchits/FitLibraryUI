@@ -33,7 +33,7 @@ export class TrainingPlanDetailComponent implements OnInit {
 
   private initTrainingPlan(id: number): void {
     this.isPlanLoaded = false;
-    this.trainingPlanService.getTrainingPlanById(id).subscribe((trainingPlan: TrainingPlanFull) => {
+    this.trainingPlanService.getById(id).subscribe((trainingPlan: TrainingPlanFull) => {
       this.trainingPlan = trainingPlan || null;
       this.sortExercisesByWeek();
       this.isPlanLoaded = true;

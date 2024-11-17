@@ -7,7 +7,7 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './partials/navbar/navbar.component';
 import { TrainingPlanModuleComponent } from './training-plan/training-plan-module/training-plan-module.component';
 import { TrainingPlanMainComponent } from './training-plan/training-plan-main/training-plan-main.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TrainingPlanDetailComponent } from './training-plan/training-plan-detail/training-plan-detail.component';
 import { WeekdayPipe } from './training-plan/common/pipes/weekday.pipe';
@@ -17,6 +17,9 @@ import { TableEditContextMenuComponent } from './shared/table-edit-context-menu/
 import { TruncatePipe } from './training-plan/common/pipes/truncate.pipe';
 import { PhotoComponent } from './shared/photo/photo.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { LoginComponent } from './auth/login/login.component';
+import { AuthService } from './auth/common/services/auth.service';
+import { JwtInterceptor } from './auth/common/interceptors/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     TableEditContextMenuComponent,
     TruncatePipe,
     PhotoComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +45,10 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     ReactiveFormsModule,
     DragDropModule,
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

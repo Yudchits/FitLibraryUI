@@ -24,7 +24,7 @@ export class TrainingPlanMainComponent implements OnInit {
 
   private initTrainingPlans(): void {
     this.isTrainingPlansLoaded = false;
-    this.trainingPlanService.getAllTrainingPlans().subscribe((trainingPlans: TrainingPlanShort[]) => {
+    this.trainingPlanService.getAll().subscribe((trainingPlans: TrainingPlanShort[]) => {
       this.trainingPlans = trainingPlans || [];
       this.trainingPlansDisplay = this.trainingPlans;
       this.isTrainingPlansLoaded = true;
